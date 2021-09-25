@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nautiljon API</title>
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #d19617;">
+        <a class="navbar-brand" href="#">Nautiljon API</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+            <a class="nav-item nav-link" href="/index">Index</a>
+            <a class="nav-item nav-link active" href="/doc/calendar">Calendrier (Docs)</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2">
+                <ul class="list-group">
+                    <li class="list-group-item">Paramètres</li>
+                    <a href="#title"><li class="list-group-item">title</li></a>
+                    <a href="#type"><li class="list-group-item">type</li></a>
+                    <a href="#limit"><li class="list-group-item">limit</li></a>
+                    <a href="#sort"><li class="list-group-item">sort</li></a>
+                    <a href="#public"><li class="list-group-item">public</li></a>
+                    <a href="#eq_episode"><li class="list-group-item">eq_episode</li></a>
+                    <a href="#sp_episode"><li class="list-group-item">sp_episode</li></a>
+                    <a href="#if_episode"><li class="list-group-item">if_episode</li></a>
+                    <a href="#simulcast"><li class="list-group-item">simulcast</li></a>
+                    <a href="#start_date"><li class="list-group-item">start_date</li></a>
+                    <a href="#eq_rate"><li class="list-group-item">eq_rate</li></a>
+                    <a href="#sp_rate"><li class="list-group-item">sp_rate</li></a>
+                    <a href="#if_rate"><li class="list-group-item">if_rate</li></a>
+                </ul>
+            </div>
+            <div class="col-10">
+                <h1>Documentation du calendrier</h1>
+                <h2>URI : /api/calendar</h2>
+
+                <p>
+                    Ce calendrier permet d'extraire des informations sur les animés du calendrier Nautiljon
+                    (<a href="https://www.nautiljon.com/animes/été-2021.html">https://www.nautiljon.com/animes/été-2021.html</a>). <br /> <br />
+
+                    Voici un exemple de résultat
+                </p>
+                <pre class="bg-light">
+{
+    "animes_amount":1,
+    "animes":[
+        {
+            "title":"One Piece",
+            "anime_page":"https://www.nautiljon.com/animes/one+piece.html",
+            "type":"Série TV",
+            "episodes":"?",
+            "kinds":[
+                "Comédie",
+                "Aventure",
+                "Drame",
+                "Tournois",
+                "Fantasy",
+                "Shônen",
+                "Fantastique",
+                "Action",
+                "Guerre",
+                "Pirates",
+                "Super pouvoirs",
+                "Combats",
+                "Amitié"
+            ],
+            "simulcasts":[
+                "crunchyroll",
+                "adn"
+            ],
+            "image":"https://www.nautiljon.com/images/anime/00/60/mini/one_piece_6.jpg?11632163624",
+            "company":"Toei Animation",
+            "description":"Il fut un temps où Gold Roger était le plus grand de tous les pirates, le \"Roi des Pirates\" .... libérer le Pays des Wa du contrôle de Kaido et de son shogun.",
+            "rate":"8.87/10",
+            "start_date":"1999-10-20",
+            "end_date":"?"
+        }
+    ]
+}
+                </pre>
+
+                <p><span class="bg-secondary">animes_amount</span> : Le nombre d'animés dans le résultat</p>
+                <p><span class="bg-secondary">animes</span> : Tableau contenant toutes les informations sur les animés</p>
+                <p><span class="bg-secondary">title</span> : le titre de l'animé</p>
+                <p><span class="bg-secondary">anime_page</span> : L'url permettant d'accéder à la page Nautiljon de l'animé</p>
+                <p><span class="bg-secondary">type</span> : Le type de format (série tv, film, etc...)</p>
+                <p><span class="bg-secondary">episodes</span> : Le nombre d'épisode. Si il n'y a pas de nombre d'épisode, alors la valeur est "?"</p>
+                <p><span class="bg-secondary">kinds</span> : Tableau contenant les genres de l'animé</p>
+                <p><span class="bg-secondary">simulcasts</span> : Tableau contenant les diffuseurs si il y en a des spécifiques</p>
+                <p><span class="bg-secondary">image</span> : L'url permettant d'avoir l'affiche de l'animé</p>
+                <p><span class="bg-secondary">company</span> : L'éditeur de l'animé</p>
+                <p><span class="bg-secondary">description</span> : La description de l'animé</p>
+                <p><span class="bg-secondary">rate</span> : La notation des gens sur l'animé (format 10/10). Si il n'y a pas de note, alors la valeur est "-/10"</p>
+                <p><span class="bg-secondary">start_date</span> : La date du jour de sortie de l'animé (format YYYY-MM-DD)</p>
+                <p><span class="bg-secondary">end_date</span> : La date de fin de diffusion de l'animé (format YYYY-MM-DD). Si il n'y a pas de date, alors la valeur est "?"</p>
+
+                <hr />
+
+                <h2>Paramètres</h2>
+                <p>Pour filtrer les informations, utilisez les paramètres suivants dans l'url (GET)</p>
+                <br />
+
+                <h3 id="title">title</h3>
+                <p><span class="bg-secondary">?title=test</span> : filtrera tout les titres d'animés contenant "test"</p>
+                <p>Type : <span class="bg-danger" style="font-weight: bold;">String</span> (non sensible à la casse)</p>
+                
+                <h3 id="type">type</h3>
+                <p><span class="bg-secondary">?type=film</span> : filtrera les animés dont le format est le "film"</p>
+                <p>Type : <span class="bg-danger" style="font-weight: bold;">String</span> (non sensible à la casse)</p>
+                <ul>
+                    Valeurs possibles
+                    <li><span class="bg-secondary">all</span> : tout type de format (par défaut)</li>
+                    <li><span class="bg-secondary">serie_tv</span> : seulement les Séries télévisées</li>
+                    <li><span class="bg-secondary">oav</span> : seulement les OAV (Original Video Animation)</li>
+                    <li><span class="bg-secondary">film</span> : seulement le films</li>
+                    <li><span class="bg-secondary">special</span> : seulement les spéciaux</li>
+                    <li><span class="bg-secondary">ona</span> : seulement les ONA (Original Net Animation)</li>
+                    <li><span class="bg-secondary">court-metrage</span> : seulement les courts métrages</li>
+                </ul>
+
+                <h3 id="limit">limit</h3>
+                <p><span class="bg-secondary">?limit=10</span> : permet de limiter le nombre de résultat. par défaut il est de "30" (et le maximum est de "150")</p>
+                <p>Type : <span class="bg-danger" style="font-weight: bold;">Integer</span></p>
+
+                <h3 id="sort">sort</h3>
+                <p><span class="bg-secondary">?sort=date</span> : permet de trier les résultats</p>
+                <p>Type : <span class="bg-danger" style="font-weight: bold;">String</span> (non sensible à la casse)</p>
+                <ul>
+                    Valeurs possibles
+                    <li><span class="bg-secondary">date</span> : trier par date (par défaut)</li>
+                    <li><span class="bg-secondary">popularity</span> : trier par popularité</li>
+                </ul>
+
+                <h3 id="public">public</h3>
+                <p><span class="bg-secondary">?public=all</span> : affichera tout type de contenu, les contenus "soft" et les contenus pornographiques</p>
+                <p>Type : <span class="bg-danger" style="font-weight: bold;">String</span> (non sensible à la casse)</p>
+                <ul>
+                    Valeurs possibles
+                    <li><span class="bg-secondary">all</span> : tout type de contenu (soft et pornographique)</li>
+                    <li><span class="bg-secondary">all_without_hentai</span> : tout contenu sans pornographie (par défaut)</li>
+                    <li><span class="bg-secondary">only_hentai</span> : seulement les contenus pornographiques</li>
+                </ul>
+
+                <h3 id="eq_episode">eq_episode</h3>
+                <p><span class="bg-secondary">?eq_episode=12</span> : (equal_episode) filtrera que les animés dont le nombre d'épisode est égal à "12" épisodes</p>
+                <p>Type : <span class="bg-danger" style="font-weight: bold;">Integer</span></p>
+
+                <h3 id="sp_episode">sp_episode</h3>
+                <p><span class="bg-secondary">?sp_episode=12</span> : (superior_episode) filtrera que les animés dont le nombre d'épisode est égal ou supérieur à "12" épisodes</p>
+                <p>Type : <span class="bg-danger" style="font-weight: bold;">Integer</span></p>
+
+                <h3 id="if_episode">if_episode</h3>
+                <p><span class="bg-secondary">?if_episode=12</span> : (inferior_episode) filtrera que les animés dont le nombre d'épisode est égal ou inférieur à "12" épisodes</p>
+                <p>Type : <span class="bg-danger" style="font-weight: bold;">Integer</span></p>
+
+                <h3 id="simulcast">simulcast</h3>
+                <p><span class="bg-secondary">?simulcast=adn</span> : filtrera tout les animés dont l'un des diffuseurs est "ADN"</p>
+                <p>Type : <span class="bg-danger" style="font-weight: bold;">String</span> (non sensible à la casse)</p>
+                <ul>
+                    Valeurs possibles
+                    <li><span class="bg-secondary">all</span> : tout types de diffuseurs (par défaut)</li>
+                    <li><span class="bg-secondary">adn</span> : l'un des diffuseurs est ADN</li>
+                    <li><span class="bg-secondary">netflix</span> : l'un des diffuseurs est NETFLIX</li>
+                    <li><span class="bg-secondary">crunchyroll</span> : l'un des diffuseurs est CRUNCHYROLL</li>
+                    <li><span class="bg-secondary">wakanim</span> : l'un des diffuseurs est WAKANIM</li>
+                    <li><span class="bg-secondary">youtube</span> : l'un des diffuseurs est YOUTUBE</li>
+                </ul>
+
+                <h3 id="start_date">start_date</h3>
+                <p><span class="bg-secondary">?start_date=2021-07-02</span> : filtrera tout les animés dont le début de diffusion est le "2021-07-02" (YYYY-MM-DD)</p>
+                <p>Type : <span class="bg-danger" style="font-weight: bold;">Date</span></p>
+
+                <h3 id="eq_rate">eq_rate</h3>
+                <p><span class="bg-secondary">?eq_rate=8.5</span> : (equal_rate) filtrera que les animés dont la note de l'animé est égal à "8.5"/10</p>
+                <p>Type : <span class="bg-danger" style="font-weight: bold;">Float</span></p>
+
+                <h3 id="sp_rate">sp_rate</h3>
+                <p><span class="bg-secondary">?sp_rate=8.5</span> : (superior_rate) filtrera que les animés dont la note de l'animé est égal ou supérieur à "8.5"/10</p>
+                <p>Type : <span class="bg-danger" style="font-weight: bold;">Float</span></p>
+
+                <h3 id="if_rate">if_rate</h3>
+                <p><span class="bg-secondary">?if_rate=test</span> : (inferior_rate) filtrera que les animés dont la note de l'animé est égal ou inférieur à "8.5"/10</p>
+                <p>Type : <span class="bg-danger" style="font-weight: bold;">Float</span></p>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
